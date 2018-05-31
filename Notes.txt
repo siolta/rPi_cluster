@@ -1,0 +1,15 @@
+People who have deployed a private registry: how do you, like, monitor this thing?
+
+JPhelps [7:40 PM]
+How do you mean?  I think monitoring like you would any web service.
+I'm not super duper in the know here.  I'm chiming in to hopefully learn something too.  Is it different?
+
+tm [7:52 PM]
+test the api, test 'docker login' have a test container spin up a nginx server on port 80 on a known IP...
+I kinda use the last one via cron, er rundeck but still.
+
+cite-reader [8:08 PM]
+Like... does it export any metrics of its own. Are there disk level things I should be watching that might indicate oncoming problems (other than the usual suspects). Can it tell me "yo shit's about to be fucked" or not
+
+tm [8:16 PM]
+I think that depends on which hub you're using. I don't think the gitlab one does, not sure about 'docker hub' but the nexus and artifactory ones do, I think.
