@@ -1,0 +1,3 @@
+# TF creds
+**/dig_ocean_creds.tf
+*.tfstate.backup
