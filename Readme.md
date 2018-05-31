@@ -5,4 +5,6 @@ This is a repo that serves to contain configuration scripts for my homelab.  My 
 
 ### TODO's
 
-Build out TF files to create digital ocean droplet for VPN server
+ - Build out TF files to create digital ocean droplet for VPN server
+ - Figure out why host keys were being aggressively checked, possibly from the .ssh config file?
+ - 
