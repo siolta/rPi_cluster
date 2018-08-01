@@ -1,0 +1,30 @@
+#cloud-config
+
+hostname: black-bramble    #change this as needed to reflect hostnames?
+manage_etc_hosts: true
+apt_preserve_sources_list: true
+
+locale: "en_US.UTF-8"
+timezone: "America/Los_Angeles"
+
+users:
+  - name: skylar                # use any user name you like
+    primary-group: users
+    shell: /bin/bash
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    groups: users,docker,adm,dialout,audio,plugdev,netdev,video
+    ssh-import-id: None
+    plain_text_passwd: __insert_pass__
+    lock_passwd: false
+    ssh-authorized-keys:
+      - ssh-rsa __insert_key__   # insert your SSH public key ~/.ssh/id_rsa.pub here
+
+package_update: true
+package_upgrade: true
+package_reboot_if_required: true
+packages:
+  - ntp
+  - vim
+
+power_state:
+  mode: reboot

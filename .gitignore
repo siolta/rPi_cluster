@@ -3,3 +3,5 @@
 *.tfstate.backup
 *.tfstate
 *.terraform
+user-data.yml
+hosts.yml
