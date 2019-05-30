@@ -19,6 +19,36 @@ users:
     ssh-authorized-keys:
       - ssh-rsa __insert_key__   # insert your SSH public key ~/.ssh/id_rsa.pub here
 
+# # WiFi connect to HotSpot
+# # - use `wpa_passphrase SSID PASSWORD` to encrypt the psk
+write_files:
+  - content: |
+      allow-hotplug wlan0
+      iface wlan0 inet dhcp
+      wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+      iface default inet dhcp
+    path: /etc/network/interfaces.d/wlan0
+  - content: |
+      ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+      update_config=1
+      network={
+      ssid="your-ssid"
+      psk="your-preshared-key"
+      proto=RSN
+      key_mgmt=WPA-PSK
+      pairwise=CCMP
+      auth_alg=OPEN
+      }
+    path: /etc/wpa_supplicant/wpa_supplicant.conf
+
+# These commands will be ran once on first boot only
+runcmd:
+  # Pickup the hostname changes
+  - 'systemctl restart avahi-daemon'
+
+  # Activate WiFi interface
+  - 'ifup wlan0'
+
 package_update: true
 package_upgrade: true
 package_reboot_if_required: true
