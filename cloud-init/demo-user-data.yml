@@ -1,6 +1,6 @@
 #cloud-config
 
-hostname: black-bramble    #change this as needed to reflect hostnames?
+hostname: black-bramble-01    #change this as needed to reflect hostnames?
 manage_etc_hosts: true
 apt_preserve_sources_list: true
 
@@ -29,11 +29,12 @@ write_files:
       iface default inet dhcp
     path: /etc/network/interfaces.d/wlan0
   - content: |
+      country=us
       ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
       update_config=1
       network={
-      ssid="your-ssid"
-      psk="your-preshared-key"
+      ssid="__ADD_SSID__"
+      psk="__ADD_PASSWORD__"
       proto=RSN
       key_mgmt=WPA-PSK
       pairwise=CCMP
