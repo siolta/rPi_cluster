@@ -1,6 +1,6 @@
 [black-bramble]
-raspberrypi_01  ansible_ssh_host=192.168.1.81
-raspberrypi_02  ansible_ssh_host=192.168.1.87
-raspberrypi_03  ansible_ssh_host=192.168.1.195
-raspberrypi_04  ansible_ssh_host=192.168.1.61
-raspberrypi_05  ansible_ssh_host=192.168.1.13
+raspberrypi_0m  ansible_ssh_host=192.168.1.187
+raspberrypi_01  ansible_ssh_host=192.168.1.108
+raspberrypi_02  ansible_ssh_host=192.168.1.86
+raspberrypi_03  ansible_ssh_host=192.168.1.193
+raspberrypi_04  ansible_ssh_host=192.168.1.60

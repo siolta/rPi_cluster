@@ -1,6 +1,6 @@
 #cloud-config
 
-hostname: black-bramble-01    #change this as needed to reflect hostnames?
+hostname: blackbramble0m    #script this to change as needed to reflect hostnames?
 manage_etc_hosts: true
 apt_preserve_sources_list: true
 
@@ -14,33 +14,59 @@ users:
     sudo: ALL=(ALL) NOPASSWD:ALL
     groups: users,docker,adm,dialout,audio,plugdev,netdev,video
     ssh-import-id: None
-    plain_text_passwd: __insert_pass__
+    plain_text_passwd: 1952forthewin
     lock_passwd: false
     ssh-authorized-keys:
-      - ssh-rsa __insert_key__   # insert your SSH public key ~/.ssh/id_rsa.pub here
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDDCVUbi0zS2tiNKj5cqfTm5EaST+/+Q+G0DJZvErn5WxKvT0XQWkEdYg2o0iSagZQY4Ey6N7DF7zLjdlvvDKKseeHUKPm6BIYo3wW9pkUQwapu4k8rQzqqvtvhS+yeeUfEHaz+98G3N6WyWXlgcr+ZJ46CjG3XuC6+EMwmSmhNvtFb2dP4y1fafl/JIUcnahhFXKIhLdnypc+1SvKA81+jGd50nj/0jdIuVG8aoseuB+slaoExgi5WUaYmGsQAjTWyzRui6gRPkIEhQWm+29R1fsD6n7mrBkijumz2s1yK0+p3mjHX6xWZzaUP6Y8ZspKxZ56V5eWwUmsqLpZuq/1WYd2kW7xKVljhFLIA05xKXyOEodIXzpJw1GhEFuaHKH/gjEN8c68pwsZXczITk/NXNMVKclcFMsEwOujva+aRc3mSkP316LwcIZY02k2eaMlhy6AZxBqvDaoJAPNjcssC8PRrS4UU8yGuWle3oj3/Q59sLi3WIKoSaDJeHWhj6JFoYoBl3bXmb91i2s5NujahS0791GwJPLvyk/cw1RY9jDFSmLs9Ghkw8GgmldgMgeFx5KElAXqNiItf4iZ4rPZtj2VNNxCsVV342WsoCHe9LAjAT/1GD16uEWSJBTA0BJxysC8ujOFysOksEvwFC+DAi6sW0VAL9LZtnsF517Qmbw== skylar.iolta@nordstrom.com   # insert your SSH public key ~/.ssh/id_rsa.pub here
 
 # # WiFi connect to HotSpot
 # # - use `wpa_passphrase SSID PASSWORD` to encrypt the psk
 write_files:
+  # - content: |
+  #     allow-hotplug wlan0
+  #     iface wlan0 inet dhcp
+  #     wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
+  #     iface default inet dhcp
+  #   path: /etc/network/interfaces.d/wlan0
+  # - content: |
+  #     country=us
+  #     ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
+  #     update_config=1
+  #     network={
+  #     ssid="American Football Sucks"
+  #     psk="glasscaseofemotion"
+  #     proto=RSN
+  #     key_mgmt=WPA-PSK
+  #     pairwise=CCMP
+  #     auth_alg=OPEN
+  #     }
+  #   path: /etc/wpa_supplicant/wpa_supplicant.conf
   - content: |
-      allow-hotplug wlan0
-      iface wlan0 inet dhcp
-      wpa-conf /etc/wpa_supplicant/wpa_supplicant.conf
-      iface default inet dhcp
-    path: /etc/network/interfaces.d/wlan0
-  - content: |
-      country=us
-      ctrl_interface=DIR=/var/run/wpa_supplicant GROUP=netdev
-      update_config=1
-      network={
-      ssid="__ADD_SSID__"
-      psk="__ADD_PASSWORD__"
-      proto=RSN
-      key_mgmt=WPA-PSK
-      pairwise=CCMP
-      auth_alg=OPEN
-      }
-    path: /etc/wpa_supplicant/wpa_supplicant.conf
+      # Your system has configured 'manage_etc_hosts' as True.
+      # As a result, if you wish for changes to this file to persist
+      # then you will need to either
+      # a.) make changes to the master file in /etc/cloud/templates/hosts.tmpl
+      # b.) change or remove the value of 'manage_etc_hosts' in
+      #     /etc/cloud/cloud.cfg or cloud-config from user-data
+      #
+      127.0.1.1 black-bramble-01.localdomain black-bramble-01
+      127.0.0.1 localhost
+
+      # Black Bramble hosts
+      192.168.1.187 blackbramble0m
+      192.168.1.108 blackbramble01
+      192.168.1.86  blackbramble02
+      192.168.1.193 blackbramble03
+      192.168.1.60  blackbramble04
+
+      # The following lines are desirable for IPv6 capable hosts
+      ::1 ip6-localhost ip6-loopback
+      fe00::0 ip6-localnet
+      ff00::0 ip6-mcastprefix
+      ff02::1 ip6-allnodes
+      ff02::2 ip6-allrouters
+      ff02::3 ip6-allhosts
+    path: /etc/cloud/templates/hosts.tmpl
 
 # These commands will be ran once on first boot only
 runcmd:
@@ -48,7 +74,11 @@ runcmd:
   - 'systemctl restart avahi-daemon'
 
   # Activate WiFi interface
-  - 'ifup wlan0'
+  # - 'ifup wlan0'
+
+  # Add K8's repository
+  - 'curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -'
+  - 'echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list'
 
 package_update: true
 package_upgrade: true
@@ -56,6 +86,11 @@ package_reboot_if_required: true
 packages:
   - ntp
   - vim
+  - kubeadm
+
+runcmd:
+  # prepull images for k8's cluster
+  - 'kubeadm config images pull'
 
 power_state:
   mode: reboot
