@@ -14,7 +14,7 @@ users:
     sudo: ALL=(ALL) NOPASSWD:ALL
     groups: users,docker,adm,dialout,audio,plugdev,netdev,video
     ssh-import-id: None
-    plain_text_passwd: 1952forthewin
+    plain_text_passwd: __Change_me__
     lock_passwd: false
     ssh-authorized-keys:
       - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDDCVUbi0zS2tiNKj5cqfTm5EaST+/+Q+G0DJZvErn5WxKvT0XQWkEdYg2o0iSagZQY4Ey6N7DF7zLjdlvvDKKseeHUKPm6BIYo3wW9pkUQwapu4k8rQzqqvtvhS+yeeUfEHaz+98G3N6WyWXlgcr+ZJ46CjG3XuC6+EMwmSmhNvtFb2dP4y1fafl/JIUcnahhFXKIhLdnypc+1SvKA81+jGd50nj/0jdIuVG8aoseuB+slaoExgi5WUaYmGsQAjTWyzRui6gRPkIEhQWm+29R1fsD6n7mrBkijumz2s1yK0+p3mjHX6xWZzaUP6Y8ZspKxZ56V5eWwUmsqLpZuq/1WYd2kW7xKVljhFLIA05xKXyOEodIXzpJw1GhEFuaHKH/gjEN8c68pwsZXczITk/NXNMVKclcFMsEwOujva+aRc3mSkP316LwcIZY02k2eaMlhy6AZxBqvDaoJAPNjcssC8PRrS4UU8yGuWle3oj3/Q59sLi3WIKoSaDJeHWhj6JFoYoBl3bXmb91i2s5NujahS0791GwJPLvyk/cw1RY9jDFSmLs9Ghkw8GgmldgMgeFx5KElAXqNiItf4iZ4rPZtj2VNNxCsVV342WsoCHe9LAjAT/1GD16uEWSJBTA0BJxysC8ujOFysOksEvwFC+DAi6sW0VAL9LZtnsF517Qmbw== skylar.iolta@nordstrom.com   # insert your SSH public key ~/.ssh/id_rsa.pub here
