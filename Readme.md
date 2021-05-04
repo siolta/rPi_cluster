@@ -5,6 +5,34 @@ This is a repo that serves to contain configuration scripts for my homelab.  My 
 Creds for the VPN server need to be provided as usual in a file under /vpn
 
 
+### Cloud-init runcmd notes
+If you've added some `runcmd` lines to your `cloud-init` config, and the commands don't seem to be executing, here's a few things you should know:
+
+### WTF is going on?
+
+1. `runcmd` only has code to "shellify" your strings or array of strings (i.e: turns them into a shell script)
+2. `runcmd` will **only** _write_ a shell script into the file `/var/lib/cloud/instance/scripts/runcmd`
+3. `runcmd` is part of the `cloud_config_modules` boot stage
+4. You need to `execute` that _runcmd shell script_ using the `scripts-user` module
+5. `scripts-user` is part of the `cloud_final_modules` boot stage
+
+### Solution
+
+Here's an example config that **WORKS: (as of `v19.3`)**
+
+```yaml
+cloud_config_modules:
+  - runcmd
+
+cloud_final_modules:
+  - scripts-user
+
+runcmd:
+  - [ touch, /tmp/myfile ]
+```
+
+You can test this by manually running `cloud-init modules --mode config; cloud-init modules --mode final`.
+
 ### TODO's
 
  - Build out TF files to create digital ocean droplet for VPN server

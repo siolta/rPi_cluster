@@ -1,11 +1,23 @@
 #cloud-config
 
-hostname: blackbramble0m    #script this to change as needed to reflect hostnames?
+hostname: blackbramble00    #script this to change as needed to reflect hostnames?
 manage_etc_hosts: true
 apt_preserve_sources_list: true
 
+## these don't seem to be required
+# cloud_config_modules:
+#   - runcmd
+#   - ntp
+
+cloud_final_modules:
+  - scripts-user
+
 locale: "en_US.UTF-8"
 timezone: "America/Los_Angeles"
+
+# ntp:
+#   enabled: true
+#   ntp_client: ntp
 
 users:
   - name: skylar                # use any user name you like
@@ -17,7 +29,7 @@ users:
     plain_text_passwd: __Change_me__
     lock_passwd: false
     ssh-authorized-keys:
-      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQDDCVUbi0zS2tiNKj5cqfTm5EaST+/+Q+G0DJZvErn5WxKvT0XQWkEdYg2o0iSagZQY4Ey6N7DF7zLjdlvvDKKseeHUKPm6BIYo3wW9pkUQwapu4k8rQzqqvtvhS+yeeUfEHaz+98G3N6WyWXlgcr+ZJ46CjG3XuC6+EMwmSmhNvtFb2dP4y1fafl/JIUcnahhFXKIhLdnypc+1SvKA81+jGd50nj/0jdIuVG8aoseuB+slaoExgi5WUaYmGsQAjTWyzRui6gRPkIEhQWm+29R1fsD6n7mrBkijumz2s1yK0+p3mjHX6xWZzaUP6Y8ZspKxZ56V5eWwUmsqLpZuq/1WYd2kW7xKVljhFLIA05xKXyOEodIXzpJw1GhEFuaHKH/gjEN8c68pwsZXczITk/NXNMVKclcFMsEwOujva+aRc3mSkP316LwcIZY02k2eaMlhy6AZxBqvDaoJAPNjcssC8PRrS4UU8yGuWle3oj3/Q59sLi3WIKoSaDJeHWhj6JFoYoBl3bXmb91i2s5NujahS0791GwJPLvyk/cw1RY9jDFSmLs9Ghkw8GgmldgMgeFx5KElAXqNiItf4iZ4rPZtj2VNNxCsVV342WsoCHe9LAjAT/1GD16uEWSJBTA0BJxysC8ujOFysOksEvwFC+DAi6sW0VAL9LZtnsF517Qmbw== skylar.iolta@nordstrom.com   # insert your SSH public key ~/.ssh/id_rsa.pub here
+      - ssh-rsa __insert_here__   # insert your SSH public key ~/.ssh/id_rsa.pub here
 
 # # WiFi connect to HotSpot
 # # - use `wpa_passphrase SSID PASSWORD` to encrypt the psk
@@ -42,14 +54,22 @@ write_files:
   #     }
   #   path: /etc/wpa_supplicant/wpa_supplicant.conf
   - content: |
+      ## template:jinja
+      {#
+      This file (/etc/cloud/templates/hosts.debian.tmpl) is only utilized
+      if enabled in cloud-config.  Specifically, in order to enable it
+      you need to add the following to config:
+        manage_etc_hosts: True
+      -#}
       # Your system has configured 'manage_etc_hosts' as True.
       # As a result, if you wish for changes to this file to persist
       # then you will need to either
-      # a.) make changes to the master file in /etc/cloud/templates/hosts.tmpl
-      # b.) change or remove the value of 'manage_etc_hosts' in
+      # a.) make changes to the master file in /etc/cloud/templates/hosts.debian.tmpl
+      # b.) change or remove the value of 'manage_etc_hosts' in 
       #     /etc/cloud/cloud.cfg or cloud-config from user-data
       #
-      127.0.1.1 black-bramble-01.localdomain black-bramble-01
+      {# The value '{{hostname}}' will be replaced with the local-hostname -#}
+      127.0.1.1 {{fqdn}} {{hostname}}
       127.0.0.1 localhost
 
       # Black Bramble hosts
@@ -66,31 +86,40 @@ write_files:
       ff02::1 ip6-allnodes
       ff02::2 ip6-allrouters
       ff02::3 ip6-allhosts
-    path: /etc/cloud/templates/hosts.tmpl
+    path: /etc/cloud/templates/hosts.debian.tmpl
+  - content: |
+      [Unit]
+      Requires=docker.service
+      After=docker.service
+      [Service]
+      ExecStartPre=/sbin/iptables -P FORWARD ACCEPT
+    path: /etc/systemd/system/kubelet.service.d/20-local.conf
+  - content: |
+      #!/bin/sh
+      date
+      sudo curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg
+      echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list
+      sudo apt-get update -y && sudo apt-get install vim kubeadm
+      kubeadm config images pull
+    path: /var/lib/cloud/instance/scripts/10-bootstrapscript
+    permissions: '0755'
 
-# These commands will be ran once on first boot only
 runcmd:
+  # - date
+  # Add K8's repository
+  # - 'curl -fsSLo /usr/share/keyrings/kubernetes-archive-keyring.gpg https://packages.cloud.google.com/apt/doc/apt-key.gpg'
+  # - 'echo "deb [signed-by=/usr/share/keyrings/kubernetes-archive-keyring.gpg] https://apt.kubernetes.io/ kubernetes-xenial main" | tee /etc/apt/sources.list.d/kubernetes.list'
+  # - 'apt-get update -y && apt-get install vim kubeadm'
   # Pickup the hostname changes
-  - 'systemctl restart avahi-daemon'
+  # - systemctl restart avahi-daemon
+
+#   # prepull images for k8's cluster
+#   - kubeadm config images pull
 
   # Activate WiFi interface
   # - 'ifup wlan0'
-
-  # Add K8's repository
-  - 'curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | apt-key add -'
-  - 'echo "deb http://apt.kubernetes.io/ kubernetes-xenial main" > /etc/apt/sources.list.d/kubernetes.list'
-
 package_update: true
-package_upgrade: true
-package_reboot_if_required: true
-packages:
-  - ntp
-  - vim
-  - kubeadm
-
-runcmd:
-  # prepull images for k8's cluster
-  - 'kubeadm config images pull'
-
-power_state:
-  mode: reboot
+# package_upgrade: false
+# packages:
+#   - vim
+#   - kubeadm
