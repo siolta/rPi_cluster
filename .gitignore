@@ -5,3 +5,4 @@
 *.terraform
 user-data.yml
 hosts.yml
+.DS_Store
