@@ -1,0 +1,256 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alpaca-prod-deployment
+  labels:
+    app: alpaca
+    env: prod
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: alpaca
+      env: prod
+  template:
+    metadata:
+      labels:
+        ver: '1'
+        app: alpaca
+        env: prod
+    spec:
+      volumes:
+        - name: kuard-data
+          hostPath:
+            path: "/var/lib/kuard"
+      containers:
+        - image: gcr.io/kuar-demo/kuard-arm:1
+          name: kuard
+          livenessProbe:
+            httpGet:
+              path: /healthy
+              port: 8080
+            periodSeconds: 2
+            initialDelaySeconds: 0
+            failureThreshold: 3
+            successThreshold: 1
+            timeoutSeconds: 1
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8080
+            periodSeconds: 2
+            initialDelaySeconds: 0
+            failureThreshold: 3
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            requests:
+              cpu: 25m
+              memory: 5Mi
+            limits:
+              cpu: 100m
+              memory: 500Mi
+          ports:
+            - containerPort: 8080
+              name: alpacaprod-http
+              protocol: TCP
+          volumeMounts:
+          - mountPath: "/data"
+            name: "kuard-data"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: alpaca-prod
+spec:
+  ports:
+    - port: 8080
+      protocol: TCP
+      targetPort: alpacaprod-http
+      name: alpaca-prod
+  selector:
+    app: alpaca
+    env: prod
+  sessionAffinity: None
+  type: NodePort
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: alpaca-test-deployment
+  labels:
+    app: alpaca
+    env: test
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: alpaca
+      env: test
+  template:
+    metadata:
+      labels:
+        ver: '2'
+        app: alpaca
+        env: test
+    spec:
+      volumes:
+        - name: kuard-data
+          hostPath:
+            path: "/var/lib/kuard"
+      containers:
+        - image: gcr.io/kuar-demo/kuard-arm:2
+          name: kuard
+          livenessProbe:
+            httpGet:
+              path: /healthy
+              port: 8080
+            periodSeconds: 2
+            initialDelaySeconds: 0
+            failureThreshold: 3
+            successThreshold: 1
+            timeoutSeconds: 1
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8080
+            periodSeconds: 2
+            initialDelaySeconds: 0
+            failureThreshold: 3
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            requests:
+              cpu: 25m
+              memory: 5Mi
+            limits:
+              cpu: 100m
+              memory: 500Mi
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          volumeMounts:
+          - mountPath: "/data"
+            name: "kuard-data"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bandicoot-prod-deployment
+  labels:
+    app: bandicoot
+    env: prod
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: bandicoot
+      env: prod
+  template:
+    metadata:
+      labels:
+        ver: '2'
+        app: bandicoot
+        env: prod
+    spec:
+      volumes:
+        - name: kuard-data
+          hostPath:
+            path: "/var/lib/kuard"
+      containers:
+        - image: gcr.io/kuar-demo/kuard-arm:2
+          name: kuard
+          livenessProbe:
+            httpGet:
+              path: /healthy
+              port: 8080
+            periodSeconds: 2
+            initialDelaySeconds: 0
+            failureThreshold: 3
+            successThreshold: 1
+            timeoutSeconds: 1
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8080
+            periodSeconds: 2
+            initialDelaySeconds: 0
+            failureThreshold: 3
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            requests:
+              cpu: 25m
+              memory: 5Mi
+            limits:
+              cpu: 100m
+              memory: 500Mi
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          volumeMounts:
+          - mountPath: "/data"
+            name: "kuard-data"
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: bandicoot-staging-deployment
+  labels:
+    app: bandicoot
+    env: staging
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: bandicoot
+      env: staging
+  template:
+    metadata:
+      labels:
+        ver: '2'
+        app: bandicoot
+        env: staging
+    spec:
+      volumes:
+        - name: kuard-data
+          hostPath:
+            path: "/var/lib/kuard"
+      containers:
+        - image: gcr.io/kuar-demo/kuard-arm:2
+          name: kuard
+          livenessProbe:
+            httpGet:
+              path: /healthy
+              port: 8080
+            periodSeconds: 2
+            initialDelaySeconds: 0
+            failureThreshold: 3
+            successThreshold: 1
+            timeoutSeconds: 1
+          readinessProbe:
+            httpGet:
+              path: /ready
+              port: 8080
+            periodSeconds: 2
+            initialDelaySeconds: 0
+            failureThreshold: 3
+            successThreshold: 1
+            timeoutSeconds: 1
+          resources:
+            requests:
+              cpu: 25m
+              memory: 5Mi
+            limits:
+              cpu: 100m
+              memory: 500Mi
+          ports:
+            - containerPort: 8080
+              name: http
+              protocol: TCP
+          volumeMounts:
+          - mountPath: "/data"
+            name: "kuard-data"
