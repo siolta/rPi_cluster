@@ -38,4 +38,13 @@ You can test this by manually running `cloud-init modules --mode config; cloud-i
  - Build out TF files to create digital ocean droplet for VPN server
  - Write script to provision (host data) VPN server
  - Figure out why host keys were being aggressively checked, possibly from the .ssh config file?
- - 
+ - Autoscale to the cloud with: https://johansiebens.dev/posts/2020/09/scale-out-your-raspberry-pi-nomad-cluster-to-the-cloud/
+ - Setup monitoring: https://itnext.io/creating-a-full-monitoring-solution-for-arm-kubernetes-cluster-53b3671186cb
+
+## If scheduler and controller manager are unhealthy
+check to see if `--port=0` needs to be removed from the manifests.
+see here https://stackoverflow.com/questions/64296491/how-to-resolve-scheduler-and-controller-manager-unhealthy-state-in-kubernetes
+### Initialize Kubernetes
+`kubeadm init --pod-network-cidr 10.244.0.0/16`
+
+
