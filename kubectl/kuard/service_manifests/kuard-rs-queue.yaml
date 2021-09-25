@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  labels:
+    app: work-queue
+    component: queue
+    chapter: jobs
+  name: queue
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: work-queue
+      component: queue
+      chapter: jobs
+  template:
+    metadata:
+      labels:
+        app: work-queue
+        component: queue
+        chapter: jobs
+    spec:
+      containers:
+        - name: queue
+          image: gcr.io/kuar-demo/kuard-arm:1
+          imagePullPolicy: Always
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: work-queue
+    component: queue
+    chapter: jobs
+  name: queue
+spec:
+  selector:
+    app: work-queue
+    component: queue
+  ports:
+  - port: 8080
+    targetPort: 8080
