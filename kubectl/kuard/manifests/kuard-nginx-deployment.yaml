@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nginx
+  name: nginx
+  namespace: default
+spec:
+  #limit revision history so it doesn't grow infinitely:
+  revisionHistoryLimit: 14
+  progressDeadlineSeconds: 600
+  replicas: 2
+  revisionHistoryLimit: 10
+  selector:
+    matchLabels:
+      app: nginx
+  strategy:
+    rollingUpdate:
+      maxSurge: 25%
+      maxUnavailable: 25%
+    type: RollingUpdate
+  template:
+    metadata:
+      annotations:
+        kubernetes.io/change-cause: "update nginx to 1.21.3"
+      creationTimestamp: null
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - image: nginx:1.21.3
+        imagePullPolicy: Always
+        name: nginx
+        resources: {}
+        terminationMessagePath: /dev/termination-log
+        terminationMessagePolicy: File
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
