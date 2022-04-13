@@ -78,6 +78,7 @@ write_files:
       192.168.1.86  blackbramble02
       192.168.1.193 blackbramble03
       192.168.1.60  blackbramble04
+      192.168.1.22  blackbramble05
 
       # The following lines are desirable for IPv6 capable hosts
       ::1 ip6-localhost ip6-loopback
