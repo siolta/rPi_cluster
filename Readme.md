@@ -39,7 +39,14 @@ You can test this by manually running `cloud-init modules --mode config; cloud-i
  - Write script to provision (host data) VPN server
  - Figure out why host keys were being aggressively checked, possibly from the .ssh config file?
  - Autoscale to the cloud with: https://johansiebens.dev/posts/2020/09/scale-out-your-raspberry-pi-nomad-cluster-to-the-cloud/
+ - the operator pattern in Nomad:
+  - <https://andydote.co.uk/2021/11/22/nomad-operator-pattern/>
  - Setup monitoring: https://itnext.io/creating-a-full-monitoring-solution-for-arm-kubernetes-cluster-53b3671186cb
+ - with monitoring in place, monitor the hosts and the cluster backend api
+   - <https://aws.amazon.com/blogs/containers/troubleshooting-amazon-eks-api-servers-with-prometheus/>
+ - Pi-hole on k8s: 
+   - <https://subtlepseudonym.medium.com/pi-hole-on-kubernetes-87fc8cdeeb2e>
+   - <https://uthark.github.io/post/2021-10-06-running-pihole-kubernetes/>
 
 ## If scheduler and controller manager are unhealthy
 check to see if `--port=0` needs to be removed from the manifests.
