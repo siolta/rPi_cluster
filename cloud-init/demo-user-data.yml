@@ -73,12 +73,12 @@ write_files:
       127.0.0.1 localhost
 
       # Black Bramble hosts
-      192.168.1.187 blackbramble0m
-      192.168.1.108 blackbramble01
-      192.168.1.86  blackbramble02
-      192.168.1.193 blackbramble03
-      192.168.1.60  blackbramble04
-      192.168.1.22  blackbramble05
+      192.168.1.119 blackbramble0m
+      192.168.1.113 blackbramble01
+      192.168.1.148 blackbramble02
+      192.168.1.140 blackbramble03
+      192.168.1.147 blackbramble04
+      192.168.1.131 blackbramble05
 
       # The following lines are desirable for IPv6 capable hosts
       ::1 ip6-localhost ip6-loopback

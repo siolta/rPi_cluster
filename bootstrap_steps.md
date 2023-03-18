@@ -82,15 +82,22 @@ After=docker.service
 ExecStartPre=/sbin/iptables -P FORWARD ACCEPT
 EOF
 
+May need to create a /etc/docker/daemon.json file;
+cat <<EOF >/etc/docker/daemon.json
+{
+    "exec-opts": ["native.cgroupdriver=systemd"]
+}
+EOF
+
 # kubeadmn steps:
 
 Note: you can do a `kubeadm reset` to reset the master node and generate a new token
-then issue `systemctl daemon-reload && systemctl restart kubelet`
+then issue `systemctl daemon-reload && systemctl restart docker && systemctl restart kubelet`
 
 To start using the cluster, you need to run the following as a regular user:
 
-  mkdir -p $HOME/.kube
-  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  mkdir -p $HOME/.kube && \
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config && \
   sudo chown $(id -u):$(id -g) $HOME/.kube/config
 
 You should now deploy a pod network to the cluster.
@@ -105,8 +112,7 @@ Weave: kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl
 
 Then you can join any number of worker nodes by running the following on each as root:
 
-kubeadm join 192.168.1.187:6443 --token jl53km...i1nr1 \
-    --discovery-token-ca-cert-hash sha256:6f7733...10850ef
+kubeadm join 192.168.1.119:6443 --token 7dyb2...jybaf --discovery-token-ca-cert-hash sha256:15e7b...74909
 
 
 # K8's CNI config steps

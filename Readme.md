@@ -4,6 +4,8 @@ This is a repo that serves to contain configuration scripts for my homelab.  My 
 
 Creds for the VPN server need to be provided as usual in a file under /vpn
 
+## Cluster Architecture
+All nodes are ARMv8
 
 ### Cloud-init runcmd notes
 If you've added some `runcmd` lines to your `cloud-init` config, and the commands don't seem to be executing, here's a few things you should know:
@@ -47,6 +49,11 @@ You can test this by manually running `cloud-init modules --mode config; cloud-i
  - Pi-hole on k8s: 
    - <https://subtlepseudonym.medium.com/pi-hole-on-kubernetes-87fc8cdeeb2e>
    - <https://uthark.github.io/post/2021-10-06-running-pihole-kubernetes/>
+
+### K8s Networking
+kubelet options : /etc/cni/net.d
+kube api server options : /etc/kubernetes/manifests/kube-apiserver.yaml
+practice rewrite rules with annotations
 
 ## If scheduler and controller manager are unhealthy
 check to see if `--port=0` needs to be removed from the manifests.
