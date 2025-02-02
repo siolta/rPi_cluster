@@ -49,7 +49,7 @@ You can test this by manually running `cloud-init modules --mode config; cloud-i
  - Pi-hole on k8s: 
    - <https://subtlepseudonym.medium.com/pi-hole-on-kubernetes-87fc8cdeeb2e>
    - <https://uthark.github.io/post/2021-10-06-running-pihole-kubernetes/>
-
+ - Resources for pi-k8s cluster; https://rpi4cluster.com/k3s/k3s-kube-setting/
 ### K8s Networking
 kubelet options : /etc/cni/net.d
 kube api server options : /etc/kubernetes/manifests/kube-apiserver.yaml
