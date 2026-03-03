@@ -1,0 +1,14 @@
+# Local storage in k3s provided by built in local path provisioner
+# https://github.com/rancher/local-path-provisioner/blob/master/README.md#usage
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: local-path-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteOnce
+  storageClassName: local-path
+  resources:
+    requests:
+      storage: 2Gi
