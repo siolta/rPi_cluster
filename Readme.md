@@ -7,6 +7,8 @@ Creds for the VPN server need to be provided as usual in a file under /vpn
 ## Cluster Architecture
 All nodes are ARMv8
 
+- Future nodes could be switched to HP EliteDesk 'mini's
+
 ### Cloud-init runcmd notes
 If you've added some `runcmd` lines to your `cloud-init` config, and the commands don't seem to be executing, here's a few things you should know:
 

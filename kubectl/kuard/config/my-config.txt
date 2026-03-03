@@ -1,3 +1,0 @@
-# sample config to use for an application
-parameter1 = value1
-parameter2 = value2
