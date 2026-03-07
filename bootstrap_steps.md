@@ -16,7 +16,6 @@
 # Install packages
  sudo apt-get install -y btop raspi-config
 
-
 # Copy ssh key?
  ssh-copy-id -i {key_name} {user}@{ip}
 

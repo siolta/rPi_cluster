@@ -3,6 +3,9 @@
 *.tfstate.backup
 *.tfstate
 *.terraform
+*.env
+*.env.pihole
 user-data.yml
 hosts.yml
+charts/
 .DS_Store

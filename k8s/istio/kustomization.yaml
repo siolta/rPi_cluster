@@ -1,0 +1,45 @@
+# helm install istio-cni istio/cni -n istio-system --set profile=ambient --set global.platform=k3s --wait
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - istio-namespace.yaml
+
+helmCharts:
+  - name: base
+    repo: https://istio-release.storage.googleapis.com/charts
+    version: 1.29.0
+    releaseName: istio-base
+    namespace: istio-system
+
+  - name: istiod
+    repo: https://istio-release.storage.googleapis.com/charts
+    version: 1.29.0
+    releaseName: istiod
+    namespace: istio-system
+    valuesInline:
+      profile: ambient
+      meshConfig:
+        accessLogFile: /dev/stdout
+      pilot:
+        env:
+          # Required for Ambient mode visibility
+          TERMINATION_DRAIN_DURATION_SECONDS: "20"
+
+  - name: cni
+    repo: https://istio-release.storage.googleapis.com/charts
+    version: 1.29.0
+    releaseName: istio-cni
+    namespace: istio-system
+    valuesInline:
+      profile: ambient
+      global:
+        platform: k3s
+
+  - name: ztunnel
+    repo: https://istio-release.storage.googleapis.com/charts
+    version: 1.29.0
+    releaseName: ztunnel
+    namespace: istio-system
+    valuesInline:
+      profile: ambient

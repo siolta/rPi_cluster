@@ -1,6 +1,6 @@
 ### Overview
 
-This is a repo that serves to contain configuration scripts for my homelab.  My homelab consists of 4 raspberry pi 3 b+, and one raspberry pi 4, all running raspbian lite, one ubuntu server, and a Digital Ocean droplet running a VPN for remote management.  
+This is a repo that serves to contain configuration scripts for my homelab.  My homelab consists of 3 raspberry pi 5's, and one raspberry pi 4, all running ubuntu server.  
 
 Creds for the VPN server need to be provided as usual in a file under /vpn
 
