@@ -1,0 +1,13 @@
+# Setup Guide @
+# https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/pihole.md
+namespace: externaldns-system
+
+# TODO: Secret has to be generated manually, how to automate
+# secretGenerator:
+#   - name: pihole-password
+#     files:
+#       - .env.pihole
+
+resources:
+  - namespace.yaml
+  - external-dns.yaml
