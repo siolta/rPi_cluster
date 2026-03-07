@@ -1,0 +1,6 @@
+# ArgoCD Applications - Managed by root app (path varies by overlay)
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+resources:
+  - metallb.yaml
