@@ -6,3 +6,4 @@ resources:
   - metal-lb.yaml
   - external-dns.yaml
   - cert-manager.yaml
+  - istio.yaml
