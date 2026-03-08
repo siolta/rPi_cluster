@@ -6,5 +6,7 @@ resources:
   - argocd-namespace.yaml
   - https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
   # - argocd-server-ingress.yaml
-  # TODO: Add patch to argocd service
-  # TODO: How to automate installation of CRDs?
+  # TODO: Add patch to argocd service || add an istio based ingress
+  # TODO: How to automate installation of CRDs? use server side apply
+  # TODO: Add the root app as a deployed resource?
+  # TODO: Patch cm to enable-helm

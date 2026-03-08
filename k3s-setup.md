@@ -3,15 +3,25 @@ K3S needs cgroups to start the systemd service.
 - disable ufw: `ufw disable`
 
 - install main server with `curl -sfL https://get.k3s.io | sh -s - --disable traefik --disable servicelb --write-kubeconfig-mode 644`
-- install followers with `curl -sfL https://get.k3s.io | K3S_URL=https://192.168.1.5:6443 K3S_TOKEN={TOKEN} sh - --disable traefik --disable servicelb --write-kubeconfig-mode 644`
+- install followers with `curl -sfL https://get.k3s.io | K3S_URL=https://192.168.1.5:6443 K3S_TOKEN={TOKEN} sh -`
 
 
 # TODO 
 install with an ingress that is not traefik?
 What is the difference between traefik and metallb? :: traefik is ingress, metallb is a load balancer implementation
+Can Argo be installed and setup before external-dns and metal-lb?
 
 
 # New pi 5 update and setup steps
 - flash nvme
 - update system : sudo apt update && sudo apt full-upgrade
 - install packages: btop, raspi-config
+
+# Post k3s install steps
+- Create external dns secret (see external dns manifests)
+- Apply metal-lb manifests
+- Install ArgoCD from kustomize manifests
+  - Patch ArgoCD service with hostname and type loadbalancer: `kubectl patch svc argocd-server -n argocd -p '{"spec": {"type": "LoadBalancer"}}'`
+  - Patch ArgoCD configMap to allow helm installations
+  - Reset ArgoCD admin password: `kubectl get secret -n argocd argocd-initial-admin-secret --template={{.data.password}} | base64 --decode | pbcopy`
+- Apply root application
