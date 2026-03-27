@@ -2,7 +2,7 @@ apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
 metadata:
   name: grafana-gateway
-  namespace: grafana # Or your preferred gateway namespace
+  namespace: monitoring # Or your preferred gateway namespace
   annotations:
     external-dns.alpha.kubernetes.io/hostname: "grafana.bramble"
 spec:
