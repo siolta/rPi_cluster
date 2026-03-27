@@ -4,7 +4,8 @@ namespace: monitoring
 
 helmCharts:
   - name: grafana
-    repo: https://grafana.github.io/helm-charts
+    repo: https://grafana-community.github.io/helm-charts
+    version: 11.3.5
     releaseName: grafana
     namespace: monitoring
     skipHooks: true
