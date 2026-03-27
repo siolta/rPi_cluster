@@ -21,8 +21,10 @@ resources:
   - https://raw.githubusercontent.com/istio/istio/release-1.29/samples/bookinfo/platform/kube/bookinfo-versions.yaml
 
 patches:
-  - path: bookinfo-gateway.yaml
+  - patch: |-
+      - op: add
+        path: "/metadata/annotations/external-dns.alpha.kubernetes.io~1hostname"
+        value: "bookinfo.bramble"
     target:
-      kind: Service
-      name: bookinfo-gateway-istio
-      namespace: bookinfo-test
+      kind: Gateway
+      name: bookinfo-gateway

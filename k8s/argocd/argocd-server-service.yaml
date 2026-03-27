@@ -1,0 +1,20 @@
+# Requires setting the argocd server to 'server.insecure: true'
+# https://argo-cd.readthedocs.io/en/stable/operator-manual/server-commands/additional-configuration-method/
+#
+# TODO: Needed?  Can actually just patch the service to be a loadbalancer with hostname annotation
+# eg:
+# metadata:
+#   annotations:
+#     external-dns.alpha.kubernetes.io/hostname: argocd.bramble
+
+# TODO: Setup as a istio ingress
+#
+---
+apiVersion: v1
+kind: Service
+metadata:
+  annotations:
+    external-dns.alpha.kubernetes.io/hostname: argocd.bramble
+  name: argocd-server
+spec:
+  type: LoadBalancer
