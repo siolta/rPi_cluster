@@ -5,7 +5,7 @@ image:
 
 service:
   enabled: true
-  type: ClusterIP # Common for internal home labs behind an Ingress
+  type: LoadBalancer # Common for internal home labs behind an Ingress
   port: 80
   targetPort: 3000
   annotations:
