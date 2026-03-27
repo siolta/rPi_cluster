@@ -37,3 +37,9 @@ persistence:
 # Disable heavy features if not needed
 reporting:
   enabled: false
+
+# with only one pod, the volume will block a successful upgrade since the PVC is only READWRITE
+deploymentStrategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 1
