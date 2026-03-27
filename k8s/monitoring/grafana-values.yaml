@@ -1,0 +1,47 @@
+# values.yaml
+image:
+  repository: grafana/grafana
+  tag: latest # Or a specific version for stability
+
+service:
+  enabled: true
+  type: LoadBalancer # Common for internal home labs behind an Ingress
+  port: 80
+  targetPort: 3000
+  annotations:
+    # This is the trigger for your external-dns controller
+    external-dns.alpha.kubernetes.io/hostname: "grafana.bramble"
+# The "Source of Truth" Magic
+sidecar:
+  dashboards:
+    enabled: true
+    label: grafana_dashboard
+    labelValue: "1"
+    searchNamespace: ALL # Or 'monitoring' to limit resource watching
+
+# Resource constraints for Pi 5
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 256Mi
+
+# Persistence using k3s default local-path
+# Root cause: so grafana's PVC has an RWO type, and the default deployment strategy is RollingUpdate, which mean in case of restart the new pod might be blocked because the volume is still mounted by another node where the original pod is running.
+# Solution: There are different ways to overcome this issue: change the PVC to ReadWriteMany, change the deploymentStrategy or set node selector or node affinity.
+persistence:
+  enabled: true
+  storageClassName: local-path
+  size: 5Gi
+
+# Disable heavy features if not needed
+reporting:
+  enabled: false
+
+# with only one pod, the volume will block a successful upgrade since the PVC is only READWRITE
+deploymentStrategy:
+  type: RollingUpdate
+  rollingUpdate:
+    maxUnavailable: 1

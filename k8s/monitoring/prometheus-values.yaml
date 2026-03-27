@@ -1,0 +1,28 @@
+# prometheus-values.yaml
+# Disable extra components to save resources on the Pi cluster
+alertmanager:
+  enabled: false
+prometheus-pushgateway:
+  enabled: false
+prometheus-node-exporter:
+  enabled: true # Keep enabled to capture host metrics
+kube-state-metrics:
+  enabled: true
+
+server:
+  # Optimize for limited storage and memory
+  retention: "2d"      
+  retentionSize: "1GB" 
+  
+  resources:
+    limits:
+      cpu: 500m
+      memory: 512Mi
+    requests:
+      cpu: 100m
+      memory: 256Mi
+      
+  persistentVolume:
+    enabled: true
+    size: 5Gi
+    storageClass: "local-path" # k3s default local storage
