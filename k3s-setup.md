@@ -13,6 +13,7 @@ In the future, research using [Yoke](https://yokecd.github.io/docs/)
 Install the Istio sample app: https://istio.io/latest/docs/ambient/getting-started/deploy-sample-app/
 Install Grafana and prometheus
 Install cert-manager and configure it for lets-encrypt
+Install a PV // storage manager
 
 # New pi 5 update and setup steps
 - flash nvme
