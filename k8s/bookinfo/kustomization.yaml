@@ -1,4 +1,6 @@
 # Istio Sample application: https://istio.io/latest/docs/ambient/getting-started/deploy-sample-app/
+# TODO: Add a Istio based ingress solution
+# TODO: Add external-dns host support
 ---
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization

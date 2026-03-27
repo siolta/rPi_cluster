@@ -1,0 +1,44 @@
+# AuthorizationPolicy -- Control access to services in the bookinfo namespace
+# Allow traffic from
+# - Local (not through Istio ingress gateway)
+# - Services within the same namespace
+# - Prometheus/monitoring namespace for metrics scraping
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: allow-mesh-traffic
+  namespace: istio-system
+spec:
+  action: ALLOW
+  rules:
+    # Allow traffic from within the istio-system namespace (service-to-service)
+    - from:
+        - source:
+            namespaces: istio-system
+    # Allow traffic from kube-system (for health checks, etc.)
+    - from:
+        - source:
+            namespaces: [kube-system]
+    # Allow traffic from monitoring namespace (Prometheus scrapes :4000/metrics)
+    - from:
+        - source:
+            namespaces: [monitoring]
+
+---
+# AuthorizationPolicy -- Allow all inbourd traffic to the Istio gateway pod
+# Gateway pods accept external traffic and route internally; they must not be
+# subject to the namespace-scoped deny-by-default policy.
+# TODO: Update this when a full Istio ingress solution is deployed
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+  name: allow-gateway-traffic
+  namespace: istio-system
+spec:
+  selector:
+    matchLabels:
+      app: kiali
+  action: ALLOW
+  rules:
+    - {} # Allow all traffic to the gateway (external ingres point)

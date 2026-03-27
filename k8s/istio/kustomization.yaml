@@ -5,9 +5,16 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: istio-system
 
+labels:
+  - includeSelectors: false
+    pairs:
+      owner: bramble
+      environment: minibramble
+
 resources:
   - istio-namespace.yaml
   - peer-authentication.yaml
+  - authorization-policies.yaml
   - https://github.com/kubernetes-sigs/gateway-api/releases/download/v1.5.0/standard-install.yaml
 
 helmCharts:
@@ -47,3 +54,13 @@ helmCharts:
     version: 1.29.1
     releaseName: ztunnel
     namespace: istio-system
+
+  # https://kiali.io/docs/installation/installation-guide/install-with-helm/#standalone-kiali-installation
+  - name: kiali-server
+    repo: https://kiali.org/helm-charts
+    version: 2.23.0
+    includeCRDs: true
+    releaseName: kiali-server
+    namespace: istio-system
+    # generate with `helm show values kiali/kiali-server >> values.yaml`
+    # valuesFile: values.yaml
