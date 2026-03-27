@@ -2,7 +2,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: bramble-cert-manager
+  name: bramble-bookinfo
   namespace: argocd
   finalizers: [resources-finalizer.argocd.argoproj.io]
 spec:
@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/siolta/rPi_cluster.git
     targetRevision: master
-    path: k8s/cert-manager
+    path: k8s/bookinfo
   destination:
     server: https://kubernetes.default.svc
     namespace: argocd

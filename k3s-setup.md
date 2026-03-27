@@ -10,7 +10,9 @@ K3S needs cgroups to start the systemd service.
 What is the difference between traefik and metallb? :: traefik is ingress, metallb is a load balancer implementation
 Can Argo be installed and setup before external-dns and metal-lb?
 In the future, research using [Yoke](https://yokecd.github.io/docs/)
+Install the Istio sample app: https://istio.io/latest/docs/ambient/getting-started/deploy-sample-app/
 Install Grafana and prometheus
+Install cert-manager and configure it for lets-encrypt
 
 # New pi 5 update and setup steps
 - flash nvme

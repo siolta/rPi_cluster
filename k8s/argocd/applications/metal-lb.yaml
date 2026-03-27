@@ -4,7 +4,6 @@ kind: Application
 metadata:
   name: bramble-metal-lb
   namespace: argocd
-  # This is the root app the manages all other apps (App of apps pattern)
   finalizers: [resources-finalizer.argocd.argoproj.io]
 spec:
   project: default
