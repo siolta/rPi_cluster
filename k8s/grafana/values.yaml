@@ -1,0 +1,39 @@
+# values.yaml
+image:
+  repository: grafana/grafana
+  tag: latest # Or a specific version for stability
+
+service:
+  enabled: true
+  type: ClusterIP # Common for internal home labs behind an Ingress
+  port: 80
+  targetPort: 3000
+  annotations:
+    # This is the trigger for your external-dns controller
+    external-dns.alpha.kubernetes.io/hostname: "grafana.bramble"
+# The "Source of Truth" Magic
+sidecar:
+  dashboards:
+    enabled: true
+    label: grafana_dashboard
+    labelValue: "1"
+    searchNamespace: ALL # Or 'monitoring' to limit resource watching
+
+# Resource constraints for Pi 5
+resources:
+  limits:
+    cpu: 500m
+    memory: 512Mi
+  requests:
+    cpu: 100m
+    memory: 256Mi
+
+# Persistence using k3s default local-path
+persistence:
+  enabled: true
+  storageClassName: local-path
+  size: 5Gi
+
+# Disable heavy features if not needed
+reporting:
+  enabled: false

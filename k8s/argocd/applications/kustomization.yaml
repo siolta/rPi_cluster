@@ -7,4 +7,5 @@ resources:
   - metal-lb.yaml
   - external-dns.yaml
   - cert-manager.yaml
+  - grafana.yaml
   - istio.yaml
