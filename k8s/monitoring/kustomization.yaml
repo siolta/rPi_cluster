@@ -9,7 +9,15 @@ helmCharts:
     releaseName: grafana
     namespace: monitoring
     skipHooks: true
-    valuesFile: values.yaml
+    valuesFile: grafana-values.yaml
+
+  - name: prometheus
+    repo: https://prometheus-community.github.io/helm-charts
+    version: 28.14.1
+    releaseName: prometheus
+    namespace: monitoring
+    skipHooks: true
+    valuesFile: prometheus-values.yaml
 
 resources:
   - namespace.yaml
