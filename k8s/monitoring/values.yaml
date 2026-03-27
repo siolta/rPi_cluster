@@ -3,6 +3,9 @@ image:
   repository: grafana/grafana
   tag: latest # Or a specific version for stability
 
+admin:
+  existingSecret: grafana
+
 service:
   enabled: true
   type: LoadBalancer # Common for internal home labs behind an Ingress
@@ -29,6 +32,8 @@ resources:
     memory: 256Mi
 
 # Persistence using k3s default local-path
+# Root cause: so grafana's PVC has an RWO type, and the default deployment strategy is RollingUpdate, which mean in case of restart the new pod might be blocked because the volume is still mounted by another node where the original pod is running.
+# Solution: There are different ways to overcome this issue: change the PVC to ReadWriteMany, change the deploymentStrategy or set node selector or node affinity.
 persistence:
   enabled: true
   storageClassName: local-path
