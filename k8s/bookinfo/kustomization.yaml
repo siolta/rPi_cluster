@@ -22,3 +22,7 @@ resources:
 
 patches:
   - path: bookinfo-gateway.yaml
+    target:
+      kind: Service
+      name: bookinfo-gateway-istio
+      namespace: bookinfo-test
