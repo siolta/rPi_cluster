@@ -11,9 +11,9 @@ kube-state-metrics:
 
 server:
   # Optimize for limited storage and memory
-  retention: "2d"      
-  retentionSize: "1GB" 
-  
+  retention: "24h"
+  retentionSize: "1GB"
+
   resources:
     limits:
       cpu: 500m
@@ -21,8 +21,36 @@ server:
     requests:
       cpu: 100m
       memory: 256Mi
-      
+
   persistentVolume:
     enabled: true
     size: 5Gi
     storageClass: "local-path" # k3s default local storage
+
+  global:
+    scrape_interval: 30s
+    evaluation_interval: 30s
+    external_labels:
+      cluster: bramble
+      environment: minibramble
+
+  extraScrapeConfigs: |
+    # Istio Control plane metrics
+    - job_name: 'istio-control-plane'
+      static_configs:
+        - targets ['istio.istio-system:15014']
+      metrics_path: /metrics
+
+    # Istio ztunnel metrics via pod annotations discovery
+    - job_name: 'istio-ztunnel'
+      kubernetes_sd_configs:
+        - role: pod
+          namespaces:
+            names: ['istio-system']
+      relabel_configs:
+        - source_labels: [__meta_kubernetes_pod_label_app]
+          action: keep
+          regex: ztunnel
+        - source_labels: [__meta_kubernetes_pod_ip]
+          target_label: __address__
+          replacement: $1:15020

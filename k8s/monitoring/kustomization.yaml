@@ -2,10 +2,16 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: monitoring
 
+labels:
+  - includeSelectors: false
+    pairs:
+      owner: bramble
+      environment: minibramble
+
 helmCharts:
   - name: grafana
     repo: https://grafana-community.github.io/helm-charts
-    version: 11.3.5
+    version: 11.3.6
     releaseName: grafana
     namespace: monitoring
     skipHooks: true
