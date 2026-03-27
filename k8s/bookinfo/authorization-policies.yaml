@@ -15,19 +15,19 @@ spec:
     # Allow traffic from within the bookinfo-test namespace (service-to-service)
     - from:
         - source:
-          namespace: [bookinfo-test]
+            namespace: [bookinfo-test]
     # Allow traffic from istio-system (if using Istio ingress gateway in future)
     - from:
         - source:
-          namespace: [istio-system]
+            namespace: [istio-system]
     # Allow traffic from kube-system (for health checks, etc.)
     - from:
         - source:
-          namespace: [kube-system]
+            namespace: [kube-system]
     # Allow traffic from monitoring namespace (Prometheus scrapes :4000/metrics)
     - from:
         - source:
-          namespace: [monitoring]
+            namespace: [monitoring]
 
 ---
 # AuthorizationPolicy -- Allow all inbourd traffic to the Istio gateway pod
