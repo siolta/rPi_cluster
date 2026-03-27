@@ -3,9 +3,6 @@ image:
   repository: grafana/grafana
   tag: latest # Or a specific version for stability
 
-admin:
-  existingSecret: grafana
-
 service:
   enabled: true
   type: LoadBalancer # Common for internal home labs behind an Ingress
