@@ -7,4 +7,4 @@ resources:
   - external-dns.yaml
   - cert-manager.yaml
   - istio.yaml
-  - kiali.yaml
+  - kiali-operator.yaml
