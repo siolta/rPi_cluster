@@ -12,7 +12,7 @@ helmCharts:
     releaseName: kiali-operator
     namespace: istio-system
     # generate with `helm show values kiali/kiali-operator >> values.yaml`
-    valuesFile: values.yaml
+    # valuesFile: values.yaml
 
 # Add in later if extra customizatin is needed to the kiali deployment
 # resources:
