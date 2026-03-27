@@ -9,6 +9,7 @@ helmCharts:
   - name: kiali-operator
     repo: https://kiali.org/helm-charts
     version: 2.23.0
+    includeCRDs: true
     releaseName: kiali-operator
     namespace: istio-system
     # generate with `helm show values kiali/kiali-operator >> values.yaml`
