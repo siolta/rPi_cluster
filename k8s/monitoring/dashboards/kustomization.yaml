@@ -2,9 +2,12 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: monitoring
+commonLabels:
+  grafana_dashboard: "bramble"
+
 resources:
   # source: https://grafana.com/grafana/dashboards/15661-k8s-dashboard-en-20250125/
-  - k8s-dashboard.yaml
+  # - k8s-dashboard.yaml
   # source: https://grafana.com/grafana/dashboards/7645-istio-control-plane-dashboard/
   - istio-dashboard.yaml
   - pi-stats.yaml
@@ -12,15 +15,13 @@ resources:
   - argocd-dashboard.yaml
 
 # Can also generate those cms using kustomize
-# commonLabels:
-#  grafana_dashboard: "1"
 #
-# configMapGenerator:
-# - name: kubernetes-dashboard
-#   namespace: prom
-#   # specify name of locally downloaded json
-#   files:
-#   - k8s-dashboard.json
-#
-# generatorOptions:
-#   disableNameSuffixHash: true
+configMapGenerator:
+  - name: kubernetes-dashboard
+    namespace: monitoring
+    # specify name of locally downloaded json
+    files:
+      - k8s-dashboard.json
+
+generatorOptions:
+  disableNameSuffixHash: true
