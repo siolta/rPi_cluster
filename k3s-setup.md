@@ -11,7 +11,7 @@ What is the difference between traefik and metallb? :: traefik is ingress, metal
 Can Argo be installed and setup before external-dns and metal-lb?
 In the future, research using [Yoke](https://yokecd.github.io/docs/)
 Install the Istio sample app: https://istio.io/latest/docs/ambient/getting-started/deploy-sample-app/
-Install Grafana and prometheus
+Install Grafana (dashboards), Grafana loki (for logs) and prometheus (metrics)
 Install cert-manager and configure it for lets-encrypt
 Install a PV // storage manager
 
