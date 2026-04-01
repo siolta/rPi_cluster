@@ -26,6 +26,11 @@ configMapGenerator:
     namespace: monitoring
     files:
       - argocd-dashboard.json
+  # source: https://grafana.com/grafana/dashboards/1860-node-exporter-full/
+  - name: node-exporter-dashboard
+    namespace: monitoring
+    files:
+      - node-exporter-dashboard.json
 
 generatorOptions:
   disableNameSuffixHash: true
