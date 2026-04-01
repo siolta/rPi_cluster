@@ -8,22 +8,24 @@ labels:
       grafana_dashboard: "bramble"
 
 resources:
-  # source: https://grafana.com/grafana/dashboards/15661-k8s-dashboard-en-20250125/
-  # - k8s-dashboard.yaml
-  # source: https://grafana.com/grafana/dashboards/7645-istio-control-plane-dashboard/
-  - istio-dashboard.yaml
   - pi-stats.yaml
-  # source: https://grafana.com/grafana/dashboards/14584-argocd/
-  - argocd-dashboard.yaml
 
-# Can also generate those cms using kustomize
-#
 configMapGenerator:
+  # source: https://grafana.com/grafana/dashboards/15661-k8s-dashboard-en-20250125/
   - name: kubernetes-dashboard
     namespace: monitoring
-    # specify name of locally downloaded json
     files:
       - k8s-dashboard.json
+  # source: https://grafana.com/grafana/dashboards/7645-istio-control-plane-dashboard/
+  - name: istio-dashboard
+    namespace: monitoring
+    files:
+      - istio-dashboard.json
+  # source: https://grafana.com/grafana/dashboards/14584-argocd/
+  - name: argocd-dashboard
+    namespace: monitoring
+    files:
+      - argocd-dashboard.json
 
 generatorOptions:
   disableNameSuffixHash: true
