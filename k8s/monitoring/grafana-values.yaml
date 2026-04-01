@@ -18,7 +18,7 @@ sidecar:
     enabled: true
     label: grafana_dashboard
     labelValue: "bramble"
-    searchNamespace: ALL # Or 'monitoring' to limit resource watching
+    searchNamespace: "monitoring" # to limit resource watching, can watch ALL namespaces as well
 
 # Resource constraints for Pi 5
 resources:
