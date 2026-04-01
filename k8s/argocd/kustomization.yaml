@@ -5,6 +5,7 @@ namespace: argocd
 resources:
   - argocd-namespace.yaml
   - https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+    # TODO: Switch from the install manifest -> stable resources?
     # TODO: Add patch to argocd service || add an istio based ingress
     # TODO: How to automate installation of CRDs? use server side apply
     # TODO: Add the root app as a deployed resource?

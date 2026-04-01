@@ -13,8 +13,10 @@ Configure sync waves for the ArgoCD applications so that they apply in the right
 In the future, research using [Yoke](https://yokecd.github.io/docs/)
 Install the Istio sample app: https://istio.io/latest/docs/ambient/getting-started/deploy-sample-app/
 Install Grafana (dashboards), Grafana loki (for logs) and prometheus (metrics)
+  - Improve grafana authentication?
+  - Configure prometheus with a job to scrape any pod with a specific label
 Install cert-manager and configure it for lets-encrypt
-Install a PV // storage manager
+Install a PV // storage manager? Longhorn?
 
 # New pi 5 update and setup steps
 - flash nvme
