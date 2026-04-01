@@ -5,7 +5,8 @@ metadata:
   name: kubernetes-dashboard
   namespace: monitoring
   labels:
-    grafana_dashboard: "kubernetes"
+    # this is currently read by the grafana sidecar that loads dashboards
+    grafana_dashboard: "1"
 data:
   k8s-dashboard.json: |-
     {
