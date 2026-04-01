@@ -17,7 +17,7 @@ sidecar:
   dashboards:
     enabled: true
     label: grafana_dashboard
-    labelValue: "1"
+    labelValue: "bramble"
     searchNamespace: ALL # Or 'monitoring' to limit resource watching
 
 # Resource constraints for Pi 5

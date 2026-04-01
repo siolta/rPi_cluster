@@ -4,7 +4,7 @@ metadata:
   name: pi-cluster-dashboard
   namespace: monitoring
   labels:
-    grafana_dashboard: "1"
+    grafana_dashboard: "bramble"
 data:
   pi-stats.json: |-
     {

@@ -6,7 +6,7 @@ metadata:
   namespace: monitoring
   labels:
     # this is currently read by the grafana sidecar that loads dashboards
-    grafana_dashboard: "1"
+    grafana_dashboard: "bramble"
 data:
   k8s-dashboard.json: |-
     {
