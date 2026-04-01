@@ -7,8 +7,8 @@ labels:
     pairs:
       grafana_dashboard: "bramble"
 
-resources:
-  - pi-stats.yaml
+# resources:
+#   - pi-stats.yaml
 
 configMapGenerator:
   # source: https://grafana.com/grafana/dashboards/15661-k8s-dashboard-en-20250125/
@@ -32,6 +32,11 @@ configMapGenerator:
   #   namespace: monitoring
   #   files:
   #     - node-exporter-dashboard.json
+  # source: https://grafana.com/grafana/dashboards/17586-pi-k3s-simple-dashboard/
+  - name: pi-k3s-dashboard
+    namespace: monitoring
+    files:
+      - pi-k3s-dashboard.json
 
 generatorOptions:
   disableNameSuffixHash: true
