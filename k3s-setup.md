@@ -17,6 +17,7 @@ Install Grafana (dashboards), Grafana loki (for logs) and prometheus (metrics)
   - Configure prometheus with a job to scrape any pod with a specific label
 Install cert-manager and configure it for lets-encrypt
 Install a PV // storage manager? Longhorn?
+Install kyverno and some simple policies (resource mutator?)
 
 # New pi 5 update and setup steps
 - flash nvme
