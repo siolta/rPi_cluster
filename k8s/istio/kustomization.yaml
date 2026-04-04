@@ -75,6 +75,9 @@ helmCharts:
       external_services:
         prometheus:
           url: "http://prometheus-server.monitoring:80/"
+        grafana:
+          enabled: true
+          internal_url: "http://grafana.monitoring:80/"
 
 patches:
   - path: kiali-service.yaml
