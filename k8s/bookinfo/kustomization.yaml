@@ -14,7 +14,7 @@ labels:
 
 resources:
   - namespace.yaml
-  - authorization-policies.yaml
+  # - authorization-policies.yaml
   - https://raw.githubusercontent.com/istio/istio/release-1.29/samples/bookinfo/platform/kube/bookinfo.yaml
   - https://raw.githubusercontent.com/istio/istio/release-1.29/samples/bookinfo/gateway-api/bookinfo-gateway.yaml
   # Defines available versions as services so istio can control versioned traffic

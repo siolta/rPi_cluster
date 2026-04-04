@@ -30,4 +30,4 @@ resources:
   - dashboards/ # Folder containing your JSON-to-ConfigMap manifests
   # - gateway.yaml
   # - httproute.yaml
-  - authorization-policies.yaml
+  # - authorization-policies.yaml

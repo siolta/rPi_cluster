@@ -8,7 +8,7 @@ apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
   name: allow-mesh-traffic
-  namespace: monitoring
+  namespace: monitoringauthorization
 spec:
   action: ALLOW
   rules:
