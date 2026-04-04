@@ -72,6 +72,9 @@ helmCharts:
     valuesInline:
       auth:
         strategy: anonymous
+      external_services:
+        prometheus:
+          url: "prometheus-server.monitoring:80"
 
 patches:
   - path: kiali-service.yaml
