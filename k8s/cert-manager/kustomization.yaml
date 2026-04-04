@@ -4,5 +4,10 @@ kind: Kustomization
 namespace: cert-manager
 
 resources:
-  - namespace.yaml
   - https://github.com/cert-manager/cert-manager/releases/download/v1.19.4/cert-manager.yaml
+
+patches:
+  - path: namespace.yaml
+    target:
+      kind: Namespace
+      name: cert-manager
