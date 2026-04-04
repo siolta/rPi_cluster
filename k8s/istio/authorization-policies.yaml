@@ -16,10 +16,6 @@ spec:
     - from:
         - source:
             namespaces: [istio-system]
-    # Allow traffic from kube-system (for health checks, etc.)
-    - from:
-        - source:
-            namespaces: [kube-system]
     # Allow traffic from monitoring namespace (Prometheus scrapes :4000/metrics)
     - from:
         - source:
