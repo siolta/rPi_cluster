@@ -1,8 +1,12 @@
 # Installation docs @
 # https://metallb.io/installation/
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
 namespace: metallb-system
 
 resources:
+  - namespace.yaml
   - github.com/metallb/metallb/config/native?ref=v0.15.3
   - ip-pool.yaml
   - l2-advertisement.yaml

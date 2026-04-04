@@ -1,5 +1,8 @@
 # Setup Guide @
 # https://github.com/kubernetes-sigs/external-dns/blob/master/docs/tutorials/pihole.md
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
 # TODO: configure external dns to gateway resources of class istio
 namespace: externaldns-system
 
