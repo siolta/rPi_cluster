@@ -9,4 +9,4 @@ spec:
     - grafana.bramble
   secretName: grafana-bramble-cert
   issuerRef:
-    name: test-selfsigned
+    name: bramble-ca-issuer
