@@ -28,6 +28,6 @@ helmCharts:
 resources:
   - namespace.yaml
   - dashboards/ # Folder containing your JSON-to-ConfigMap manifests
-  # - gateway.yaml
-  # - httproute.yaml
+  - gateway.yaml
+  - httproute.yaml
   # - authorization-policies.yaml
