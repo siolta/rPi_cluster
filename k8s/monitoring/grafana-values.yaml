@@ -8,9 +8,7 @@ service:
   type: LoadBalancer # Common for internal home labs behind an Ingress
   port: 80
   targetPort: 3000
-  annotations:
-    # This is the trigger for your external-dns controller
-    external-dns.alpha.kubernetes.io/hostname: "grafana.bramble"
+  # Don't annotate the external dns record here, do it in the gateway
 
 # The "Source of Truth" Magic
 sidecar:

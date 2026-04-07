@@ -5,8 +5,8 @@ metadata:
   namespace: monitoring
 spec:
   parentRefs:
-    - name: bramble-gateway
-      namespace: istio-ingress
+    - name: grafana-gateway
+      namespace: monitoring
   hostnames:
     - "grafana.bramble"
   rules:
