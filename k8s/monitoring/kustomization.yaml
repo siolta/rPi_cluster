@@ -30,6 +30,5 @@ resources:
   - dashboards/ # Folder containing your JSON-to-ConfigMap manifests
   - gateway.yaml
   - httproute.yaml
-  - tlsroute.yaml
   - grafana-cert.yaml
   # - authorization-policies.yaml
