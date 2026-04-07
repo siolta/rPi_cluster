@@ -3,8 +3,21 @@ apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
 namespace: cert-manager
 
+helmCharts:
+  - name: cert-manager
+    repo: oci://quay.io/jetstack/charts
+    version: 1.20.0
+    releaseName: cert-manager
+    includeCRDs: true
+    skipHooks: true
+    namespace: cert-manager
+    valuesInline:
+      crds:
+        enabled: true
+      config:
+        enableGatewayAPI: true
+
 resources:
-  - https://github.com/cert-manager/cert-manager/releases/download/v1.20.0/cert-manager.yaml
   - clusterissuer.yaml
   - test-resources.yaml
 
