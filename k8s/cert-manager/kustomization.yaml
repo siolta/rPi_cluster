@@ -20,4 +20,4 @@ helmCharts:
 resources:
   - namespace.yaml
   - clusterissuer.yaml
-  - test-resources.yaml
+  # - test-resources.yaml

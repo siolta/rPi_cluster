@@ -15,6 +15,6 @@ spec:
   hostnames:
     - "grafana.bramble"
   rules:
-    backendRefs:
-      - name: grafana
-        port: 80
+    - backendRefs:
+        - name: grafana
+          port: 80
