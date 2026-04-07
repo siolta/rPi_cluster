@@ -1,5 +1,9 @@
+---
 apiVersion: gateway.networking.k8s.io/v1
 kind: Gateway
+# TODO: Make this a generic gateway for the monitoring namespace
+# EG; monitoring.bramble/grafana || monitoring.bramble/prometheus
+# forward to the respective service
 metadata:
   name: grafana-gateway
   namespace: monitoring # Or your preferred gateway namespace
@@ -22,8 +26,8 @@ spec:
         mode: Terminate
         certificateRefs:
           - kind: Secret
-            group: ""
             name: grafana-bramble-cert
+            namespace: monitoring
       allowedRoutes:
         namespaces:
           from: Same

@@ -8,6 +8,10 @@ spec:
   parentRefs:
     - name: grafana-gateway
       namespace: monitoring
+      sectionName: http
+    - name: grafana-gateway
+      namespace: monitoring
+      sectionName: https
   hostnames:
     - "grafana.bramble"
   rules:
