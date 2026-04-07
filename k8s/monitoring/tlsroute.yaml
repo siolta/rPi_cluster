@@ -1,12 +1,13 @@
 ---
 apiVersion: gateway.networking.k8s.io/v1
-kind: HTTPRoute
+kind: TLSRoute
 metadata:
   name: grafana-route
   namespace: monitoring
 spec:
   parentRefs:
     - name: grafana-gateway
+      sectionName: https
       namespace: monitoring
   hostnames:
     - "grafana.bramble"
