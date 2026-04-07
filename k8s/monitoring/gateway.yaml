@@ -20,6 +20,10 @@ spec:
       hostname: "grafana.bramble"
       tls:
         mode: Terminate
+        certificateRefs:
+          - kind: Secret
+            group: ""
+            name: grafana-bramble-cert
       allowedRoutes:
         namespaces:
           from: Same
