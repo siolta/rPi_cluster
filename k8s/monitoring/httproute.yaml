@@ -15,10 +15,6 @@ spec:
   hostnames:
     - "grafana.bramble"
   rules:
-    - matches:
-        - path:
-            type: PathPrefix
-            value: /
-      backendRefs:
-        - name: grafana
-          port: 80
+    backendRefs:
+      - name: grafana
+        port: 80
