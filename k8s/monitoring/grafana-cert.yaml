@@ -9,4 +9,5 @@ spec:
     - grafana.bramble
   secretName: grafana-bramble-cert
   issuerRef:
+    kind: ClusterIssuer
     name: bramble-ca-issuer

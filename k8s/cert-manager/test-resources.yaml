@@ -9,4 +9,5 @@ spec:
     - example.com
   secretName: selfsigned-cert-tls
   issuerRef:
+    kind: ClusterIssuer
     name: bramble-ca-issuer
