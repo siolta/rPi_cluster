@@ -5,7 +5,7 @@ image:
 
 service:
   enabled: true
-  type: LoadBalancer # Common for internal home labs behind an Ingress
+  type: ClusterIP # Common for internal home labs behind an Ingress
   port: 80
   targetPort: 3000
   # Don't annotate the external dns record here, do it in the gateway
