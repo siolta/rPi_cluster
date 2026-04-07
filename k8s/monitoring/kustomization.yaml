@@ -31,4 +31,5 @@ resources:
   - gateway.yaml
   - httproute.yaml
   - tlsroute.yaml
+  - grafana-cert.yaml
   # - authorization-policies.yaml

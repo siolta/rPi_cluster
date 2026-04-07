@@ -1,0 +1,12 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: grafana-bramble-self-cert
+  namespace: monitoring
+spec:
+  dnsNames:
+    - grafana.bramble
+  secretName: grafana-bramble-cert
+  issuerRef:
+    name: test-selfsigned
