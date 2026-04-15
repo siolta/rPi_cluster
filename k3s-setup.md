@@ -10,7 +10,8 @@ K3S needs cgroups to start the systemd service.
 What is the difference between traefik and metallb? :: traefik is ingress, metallb is a load balancer implementation
 Can Argo be installed and setup before external-dns and metal-lb?
 Configure sync waves for the ArgoCD applications so that they apply in the right order post bootstrap
-In the future, research using [Yoke](https://yokecd.github.io/docs/)
+In the future, research using [Yoke](https://yokecd.github.io/docs/)?
+ - Or maybe kustomize components?
 Install the Istio sample app: https://istio.io/latest/docs/ambient/getting-started/deploy-sample-app/
 Install Grafana (dashboards), Grafana loki (for logs) and prometheus (metrics)
   - Improve grafana authentication?
