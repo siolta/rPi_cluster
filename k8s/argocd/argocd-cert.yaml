@@ -1,0 +1,13 @@
+---
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: argocd-bramble-self-cert
+  namespace: monitoring
+spec:
+  dnsNames:
+    - argocd.bramble
+  secretName: argocd-bramble-cert
+  issuerRef:
+    kind: ClusterIssuer
+    name: bramble-ca-issuer

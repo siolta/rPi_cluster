@@ -10,9 +10,20 @@ resources:
     # TODO: How to automate installation of CRDs? use server side apply
     # TODO: Add the root app as a deployed resource?
     # TODO: Patch cm to enable-helm
+  - argocd-cert.yaml
+  - argocd-gateway.yaml
+  - argocd-httproutes.yaml
 
 patches:
+  - path: argocd-cmd-params-cm.yaml
+    target:
+      kind: ConfigMap
+      name: argocd-cmd-params-cm
   - path: argocd-server-service.yaml
     target:
       kind: Service
       name: argocd-server
+  # - path: argocd-deployment.yaml
+  #   target:
+  #     kind: Deployment
+  #     name: argocd-server

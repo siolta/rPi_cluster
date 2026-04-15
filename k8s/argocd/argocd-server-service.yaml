@@ -17,4 +17,5 @@ metadata:
     external-dns.alpha.kubernetes.io/hostname: argocd.bramble
   name: argocd-server
 spec:
-  type: LoadBalancer
+  type: ClusterIP
+  # type: LoadBalancer
