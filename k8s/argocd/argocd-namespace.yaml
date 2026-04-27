@@ -2,5 +2,4 @@ apiVersion: v1
 kind: Namespace
 metadata:
   name: argocd
-  labels:
-    istio.io/dataplane-mode: ambient
+  labels: # istio.io/dataplane-mode: ambient
