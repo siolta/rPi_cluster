@@ -1,0 +1,30 @@
+# AuthorizationPolicy -- Control access to services in the bookinfo namespace
+# Allow traffic from
+# - Local (not through Istio ingress gateway)
+# - Services within the same namespace
+# - Prometheus/monitoring namespace for metrics scraping
+---
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+    name: allow-mesh-traffic
+    namespace: monitoringauthorization
+spec:
+    action: ALLOW
+    rules:
+        # Allow traffic from within the bookinfo-test namespace (service-to-service)
+        - from:
+              - source:
+                    namespaces: [bookinfo-test]
+        # Allow traffic from istio-system (if using Istio ingress gateway in future)
+        - from:
+              - source:
+                    namespaces: [istio-system]
+        # Allow traffic from monitoring namespace (Prometheus scrapes :4000/metrics)
+        - from:
+              - source:
+                    namespaces: [monitoring]
+
+        - to:
+              - operation:
+                    ports: ["8080"]
