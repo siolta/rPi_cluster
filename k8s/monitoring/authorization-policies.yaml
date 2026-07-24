@@ -24,22 +24,9 @@ spec:
     - from:
         - source:
             namespaces: [monitoring]
-
----
-# AuthorizationPolicy -- Allow all inbourd traffic to the Istio gateway pod
-# Gateway pods accept external traffic and route internally; they must not be
-# subject to the namespace-scoped deny-by-default policy.
-# TODO: Update this when a full Istio ingress solution is deployed
-apiVersion: security.istio.io/v1
-kind: AuthorizationPolicy
-metadata:
-  name: allow-gateway-traffic
-  namespace: bookinfo-test
-spec:
-  selector:
-    matchLabels:
-      app.kubernetes.io/instance: grafana
-  action: ALLOW
-  rules:
-    - {} # Allow all traffic to the gateway (external ingres point)
-
+    # kubelet health checks (paintext, no mesh identity - can't be
+    # matched by source.namespaces, so these are scoped to the probe
+    # ports instead with no `from` to allow unauthenticated traffic)
+    - to:
+        - operation:
+            ports: ["3000", "9090"] # grafana, prom-server
