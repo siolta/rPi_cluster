@@ -51,6 +51,15 @@ datasources:
 
 # Preload Istio dashboards via configmaps?
 dasboardProviders:
+  dashboardproviders.yaml:
+    apiVersion: 1
+    providers:
+      - name: istio
+        orgId: 1
+        folder: Istio
+        type: file
+        options:
+          path: /var/lib/grafana/dashboards/istio
 
 # with only one pod, the volume will block a successful upgrade since the PVC is only READWRITE
 deploymentStrategy:
