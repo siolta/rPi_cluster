@@ -8,14 +8,14 @@ apiVersion: security.istio.io/v1
 kind: AuthorizationPolicy
 metadata:
     name: allow-mesh-traffic
-    namespace: monitoringauthorization
+    namespace: argocd
 spec:
     action: ALLOW
     rules:
         # Allow traffic from within the bookinfo-test namespace (service-to-service)
         - from:
               - source:
-                    namespaces: [bookinfo-test]
+                    namespaces: [argocd]
         # Allow traffic from istio-system (if using Istio ingress gateway in future)
         - from:
               - source:
@@ -27,4 +27,21 @@ spec:
 
         - to:
               - operation:
+                    methods: ["GET"]
                     ports: ["8080"]
+---
+# AuthorizationPolicy -- Allow all inbourd traffic to the Istio gateway pod
+# Gateway pods accept external traffic and route internally; they must not be
+# subject to the namespace-scoped deny-by-default policy.
+apiVersion: security.istio.io/v1
+kind: AuthorizationPolicy
+metadata:
+    name: allow-gateway-traffic
+    namespace: argocd
+spec:
+    selector:
+        matchLabels:
+            gateway.networking.k8s.io/gateway-name: argocd-gateway
+    action: ALLOW
+    rules:
+        - {} # Allow all traffic to the gateway (external ingress point)

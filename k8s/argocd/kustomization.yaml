@@ -14,6 +14,7 @@ resources:
   - argocd-gateway.yaml
   - argocd-httproutes.yaml
   - authorization-policies.yaml
+  - argocd-destination-rule.yaml
 
 patches:
   - path: argocd-cmd-params-cm.yaml
@@ -32,17 +33,22 @@ patches:
   # Allow ztunnel HBONE (ambient mesh) traffic through existing NetworkPolicies.
   # istio ambient traffic goes over port 15008
   - path: patches/app-controller-netpol-hbone.yaml
-    target: NetworkPolicy
-    name: argocd-application-controller-network-policy
+    target:
+      kind: NetworkPolicy
+      name: argocd-application-controller-network-policy
   - path: patches/appset-controller-netpol-hbone.yaml
-    target: NetworkPolicy
-    name: argocd-applicationset-controller-network-policy
+    target:
+      kind: NetworkPolicy
+      name: argocd-applicationset-controller-network-policy
   - path: patches/notif-controller-netpol-hbone.yaml
-    target: NetworkPolicy
-    name: argocd-notifications-controller-network-policy
+    target:
+      kind: NetworkPolicy
+      name: argocd-notifications-controller-network-policy
   - path: patches/redis-netpol-hbone.yaml
-    target: NetworkPolicy
-    name: argocd-redis-network-policy
+    target:
+      kind: NetworkPolicy
+      name: argocd-redis-network-policy
   - path: patches/repo-server-netpol-hbone.yaml
-    target: NetworkPolicy
-    name: argocd-redis-network-policy
+    target:
+      kind: NetworkPolicy
+      name: argocd-repo-server-network-policy
