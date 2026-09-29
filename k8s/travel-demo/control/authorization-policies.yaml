@@ -15,7 +15,7 @@ spec:
     # Allow traffic from within the travel-agency namespace (service-to-service)
     - from:
         - source:
-            namespaces: [travel-agency]
+            namespaces: [travel-agency, travel-control, travel-portal]
     # Allow traffic from istio-system (if using Istio ingress gateway in future)
     - from:
         - source:
