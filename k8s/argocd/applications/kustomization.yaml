@@ -9,4 +9,3 @@ resources:
   - istio.yaml
   - metal-lb.yaml
   - monitoring.yaml
-  - travel-demo.yaml
