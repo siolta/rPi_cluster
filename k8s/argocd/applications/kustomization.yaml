@@ -4,8 +4,9 @@ kind: Kustomization
 
 resources:
   - bookinfo.yaml
-  - metal-lb.yaml
-  - external-dns.yaml
   - cert-manager.yaml
-  - monitoring.yaml
+  - external-dns.yaml
   - istio.yaml
+  - metal-lb.yaml
+  - monitoring.yaml
+  - travel-demo.yaml
