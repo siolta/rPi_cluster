@@ -8,13 +8,12 @@ resources:
     # TODO: Switch from the install manifest -> stable resources?
     # TODO: Add patch to argocd service || add an istio based ingress
     # TODO: How to automate installation of CRDs? use server side apply
-    # TODO: Add the root app as a deployed resource?
-    # TODO: Patch cm to enable-helm
   - argocd-cert.yaml
   - argocd-gateway.yaml
   - argocd-httproutes.yaml
   - authorization-policies.yaml
   - argocd-destination-rule.yaml
+  - root-app.yaml
 
 patches:
   - path: argocd-cmd-params-cm.yaml
@@ -25,10 +24,6 @@ patches:
     target:
       kind: Service
       name: argocd-server
-  # - path: argocd-deployment.yaml
-  #   target:
-  #     kind: Deployment
-  #     name: argocd-server
 
   # Allow ztunnel HBONE (ambient mesh) traffic through existing NetworkPolicies.
   # istio ambient traffic goes over port 15008
