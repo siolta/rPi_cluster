@@ -1,0 +1,12 @@
+# Istio travel-demo application: https://kiali.io/docs/tutorials/travels/02-install-travel-demo/
+# TODO: Add a Istio based ingress solution
+---
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+
+namespace: travel-portal
+
+resources:
+  - namespace.yaml
+  - authorization-policies.yaml
+  - https://raw.githubusercontent.com/kiali/demos/refs/heads/master/travels/travel_portal.yaml

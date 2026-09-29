@@ -11,11 +11,14 @@ What is the difference between traefik and metallb? :: traefik is ingress, metal
 Can Argo be installed and setup before external-dns and metal-lb?
 Configure sync waves for the ArgoCD applications so that they apply in the right order post bootstrap
 In the future, research using [Yoke](https://yokecd.github.io/docs/)?
- - Or maybe kustomize components?
-Install the Istio sample app: https://istio.io/latest/docs/ambient/getting-started/deploy-sample-app/
-Install Grafana (dashboards), Grafana loki (for logs) and prometheus (metrics)
-  - Improve grafana authentication?
-  - Configure prometheus with a job to scrape any pod with a specific label
+- Or maybe kustomize components?
+- Istio travel app demo: https://kiali.io/docs/tutorials/travels/02-install-travel-demo/
+- Istio HTTP Traffic: https://istio.io/latest/docs/concepts/traffic-management/
+- Install the Istio sample app: https://istio.io/latest/docs/ambient/getting-started/deploy-sample-app/
+- Install Grafana (dashboards), Grafana loki (for logs) and prometheus (metrics)
+ - Improve grafana authentication?
+ - Configure prometheus with a job to scrape any pod with a specific label
+- Add [Firefly3](https://www.firefly-iii.org/) to manage finances? 
 Install cert-manager and configure it for lets-encrypt
 Install a PV // storage manager? Longhorn?
 Install kyverno and some simple policies (resource mutator?)
@@ -33,3 +36,6 @@ Install kyverno and some simple policies (resource mutator?)
   - Patch ArgoCD configMap to allow helm installations
   - Reset ArgoCD admin password: `kubectl get secret -n argocd argocd-initial-admin-secret --template={{.data.password}} | base64 --decode | pbcopy`
 - Apply root application
+
+## Installed learning applications:
+- Istio Bookinfo demo app: https://istio.io/latest/docs/examples/bookinfo/
