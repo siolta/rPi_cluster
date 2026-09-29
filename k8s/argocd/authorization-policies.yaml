@@ -24,11 +24,10 @@ spec:
         - from:
               - source:
                     namespaces: [monitoring]
-
-        - to:
-              - operation:
-                    methods: ["GET"]
-                    ports: ["8080"]
+        # - to:
+        #       - operation:
+        #             methods: ["GET"]
+        #             ports: ["8080"]
 ---
 # AuthorizationPolicy -- Allow all inbourd traffic to the Istio gateway pod
 # Gateway pods accept external traffic and route internally; they must not be
@@ -39,9 +38,10 @@ metadata:
     name: allow-gateway-traffic
     namespace: argocd
 spec:
-    selector:
-        matchLabels:
-            gateway.networking.k8s.io/gateway-name: argocd-gateway
+    targetRef:
+        group: gateway.networking.k8s.io
+        kind: Gateway
+        name: argocd-gateway
     action: ALLOW
     rules:
         - {} # Allow all traffic to the gateway (external ingress point)

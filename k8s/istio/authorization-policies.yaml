@@ -20,10 +20,6 @@ spec:
     - from:
         - source:
             namespaces: [monitoring]
-    # Allow traffic from kube-system for metrics-server
-    - from:
-        - source:
-            namespaces: [kube-system]
 
 ---
 # AuthorizationPolicy -- Allow all inbourd traffic to the Istio gateway pod
