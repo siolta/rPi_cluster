@@ -11,4 +11,6 @@ labels:
       environment: minibramble
 
 resources:
-  - []
+  - agency
+  - control
+  - portal
